@@ -211,6 +211,8 @@ export class ImageZoomProps {
     event: GestureResponderEvent,
     gestureState: PanResponderGestureState
   ) => boolean = () => false;
+
+  public predefinedData?: { scale: number; positionX: number; positionY: number };
 }
 
 export class ImageZoomState {

@@ -565,7 +565,30 @@ export default class ImageViewer extends React.Component<ImageZoomProps, ImageZo
   };
 
   public componentDidMount(): void {
-    if (this.props.centerOn) {
+    if (this.props.predefinedData) {
+      this.scale = this.props.predefinedData.scale;
+      this.positionX = this.props.predefinedData.positionX;
+      this.positionY = this.props.predefinedData.positionY;
+      const duration = 100;
+
+      Animated.parallel([
+        Animated.timing(this.animatedScale, {
+          toValue: this.scale,
+          duration,
+          useNativeDriver: !!this.props.useNativeDriver,
+        }),
+        Animated.timing(this.animatedPositionX, {
+          toValue: this.positionX,
+          duration,
+          useNativeDriver: !!this.props.useNativeDriver,
+        }),
+        Animated.timing(this.animatedPositionY, {
+          toValue: this.positionY,
+          duration,
+          useNativeDriver: !!this.props.useNativeDriver,
+        }),
+      ]).start()
+    } else if (this.props.centerOn) {
       this.centerOn(this.props.centerOn);
     }
   }
